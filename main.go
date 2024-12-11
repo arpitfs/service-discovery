@@ -8,6 +8,6 @@ import (
 
 func main() {
 	handler.RegisterHandlers()
-	fmt.Println("Service Started at port 8080")
+	fmt.Println("Service Discovery Server started at port 8080")
 	http.ListenAndServe(":8080", nil)
 }

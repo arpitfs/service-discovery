@@ -9,6 +9,10 @@ import (
 	"time"
 )
 
+const (
+	HealthCheckTimer = 10
+)
+
 type ServiceRegistry struct {
 	mu       sync.RWMutex
 	services map[string]model.Service
@@ -106,15 +110,15 @@ func (s *ServiceRegistry) HealthCheck() {
 		for _, service := range s.services {
 			resp, err := http.Get(service.Url)
 			if err != nil || resp.StatusCode != http.StatusOK {
-				fmt.Printf("Service not healthy: %s\n", service.Name)
+				fmt.Println("Service not healthy: ", service.Name)
 			} else {
-				fmt.Printf("Service healthy: %s\n", service.Name)
+				fmt.Println("Service healthy: ", service.Name)
 			}
 			if resp != nil {
 				resp.Body.Close()
 			}
 		}
 		s.mu.RUnlock()
-		time.Sleep(10 * time.Second)
+		time.Sleep(HealthCheckTimer * time.Second)
 	}
 }
