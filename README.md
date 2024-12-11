@@ -17,3 +17,10 @@ The repository contains the clients project which demostrates and helps in valid
 The in memory cache is used to save the services which can be replaced with cache server.
 
 ![Example](assets/example.png)
+
+Use Docker to Build and Run the System
+
+```
+docker build -t service-discovery .
+docker run -p 8080:8080 service-discovery
+```
